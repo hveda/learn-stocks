@@ -8,6 +8,7 @@ from time import mktime          # mktime transforms datetime objects to unix ti
 import csv
 import sys
 import random
+from lxml.html import fromstring
 
 user_agent_list = [
     # Chrome
@@ -38,7 +39,26 @@ user_agent_list = [
 ]
 
 
-def _get_crumbs_and_cookies(stock):
+def get_proxies():
+    """
+    Get free proxies dictionary.
+
+    parameters: none
+
+    returns dictionary of proxies.
+    """
+    url = 'https://free-proxy-list.net/'
+    response = requests.get(url)
+    parser = fromstring(response.text)
+    proxies = []
+    for i in parser.xpath('//tbody/tr')[:10]:
+        if i.xpath('.//td[7][contains(text(),"yes")]'):
+            proxy = ":".join([i.xpath('.//td[1]/text()')[0], i.xpath('.//td[2]/text()')[0]])
+            proxies.append(proxy)
+    return proxies
+
+
+def _get_crumbs_and_cookies(stock, proxy):
     """
     Get crumb and cookies for historical data csv download from yahoo finance.
 
@@ -55,7 +75,7 @@ def _get_crumbs_and_cookies(stock):
                   'User-Agent': user_agent
                   }
 
-        website = requests.get(url, headers=header)
+        website = requests.get(url, headers=header, proxies={"http": proxy, "https": proxy})
         soup = BeautifulSoup(website.text, 'lxml')
         crumb = re.findall('"CrumbStore":{"crumb":"(.+?)"}', str(soup))
 
@@ -98,14 +118,16 @@ def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end='28-04-2
     day_end_unix = convert_to_unix(day_end)
 
     stock_yf = stock + '.JK'
-    header, crumb, cookies = _get_crumbs_and_cookies(stock_yf)
+    proxies = get_proxies()
+    proxy = random.choice(proxies)
+    header, crumb, cookies = _get_crumbs_and_cookies(stock_yf, proxy)
 
     with requests.session():
         url = 'https://query1.finance.yahoo.com/v7/finance/download/' \
               '{stock}?period1={day_begin}&period2={day_end}&interval={interval}&events=history&crumb={crumb}' \
               .format(stock=stock_yf, day_begin=day_begin_unix, day_end=day_end_unix, interval=interval, crumb=crumb)
 
-        website = requests.get(url, headers=header, cookies=cookies)
+        website = requests.get(url, headers=header, cookies=cookies, proxies={"http": proxy, "https": proxy})
 
         # save and look at the html coding, find the location of what you need to get, apply the struture and grab
         data = website.text.split('\n')[:-1]
