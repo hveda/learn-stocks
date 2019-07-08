@@ -10,6 +10,8 @@ import sys
 import random
 from lxml.html import fromstring
 from itertools import cycle
+import logging
+
 
 user_agent_list = [
     # Chrome
@@ -39,6 +41,16 @@ user_agent_list = [
     'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)'
 ]
 
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+handler = logging.FileHandler('stock_crawler.log')
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger = logging.getLogger()
+logger.addHandler(handler)
+
 
 def get_proxies():
     """
@@ -51,12 +63,10 @@ def get_proxies():
     url = 'https://free-proxy-list.net/'
     response = requests.get(url)
     parser = fromstring(response.text)
-    # proxies = []
     proxies = set()
     for i in parser.xpath('//tbody/tr')[:10]:
         if i.xpath('.//td[7][contains(text(),"yes")]'):
             proxy = ":".join([i.xpath('.//td[1]/text()')[0], i.xpath('.//td[2]/text()')[0]])
-            # proxies.append(proxy)
             proxies.add(proxy)
     return proxies
 
@@ -126,6 +136,7 @@ def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end=None):
     day_end_unix = convert_to_unix(day_end)
 
     stock_yf = stock + '.JK'
+    logger.info("Start pulling data for stock {}".format(stock))
     proxies = get_proxies()
 
     proxy_pool = cycle(proxies)
@@ -146,7 +157,7 @@ def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end=None):
                 # logger.debug(len(data))
                 # logger.debug(data)
                 if not len(data):
-                    writer = csv.writer(csvfile, delimiter=',')
+                    logger.warning("Data EMPTY!! Stock: {}".format(stock))
                     raise Exception
                 else:
                     filename = '{}.csv'.format(stock)
@@ -156,15 +167,15 @@ def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end=None):
                             writer.writerow(data[i].split(','))
 
         except Exception as e:
-            print("SKIP. Proxy error!!!")
+            logger.warning("SKIP {}. Proxy {} error!!!".format(stock, proxy))
         else:
-            continue
+            logger.info("STOCK {} data downloaded!!!".format(stock))
             return True
 
-        # print(website.text)
+    logger.error("Pulling {} failed!!!".format(stock))
     return False
 
 
 if __name__ == '__main__':
-    # print(sys.argv[1])
+    # logger.debug(sys.argv[1])
     load_csv_data(stock=sys.argv[1])
