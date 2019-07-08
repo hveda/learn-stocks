@@ -98,7 +98,7 @@ def convert_to_unix(date):
     return int(mktime(datum.timetuple()))
 
 
-def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end='28-04-2019'):
+def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end=None):
     """
     Query yahoo finance api to receive historical data in csv file format.
 
@@ -113,6 +113,11 @@ def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end='28-04-2
 
     returns a list of comma seperated value lines
     """
+    logger = logging.getLogger(__name__)
+    now = datetime.now()
+    if not day_end:
+        day_end = now.strftime("%m-%d-%Y")
+
     try:
         day_begin_unix = convert_to_unix(day_begin)
     except Exception:
