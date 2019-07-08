@@ -138,19 +138,26 @@ def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end='28-04-2
 
                 # save and look at the html coding, find the location of what you need to get, apply the struture and grab
                 data = website.text.split('\n')[:-1]
-                # print(len(data))
-                filename = '{}.csv'.format(stock)
-                with open(filename, 'w', newline='') as csvfile:
+                # logger.debug(len(data))
+                # logger.debug(data)
+                if not len(data):
                     writer = csv.writer(csvfile, delimiter=',')
-                    for i in range(len(data)):
-                        writer.writerow(data[i].split(','))
+                    raise Exception
+                else:
+                    filename = '{}.csv'.format(stock)
+                    with open(filename, 'w', newline='') as csvfile:
+                        writer = csv.writer(csvfile, delimiter=',')
+                        for i in range(len(data)):
+                            writer.writerow(data[i].split(','))
+
         except Exception as e:
             print("SKIP. Proxy error!!!")
         else:
             continue
+            return True
 
         # print(website.text)
-        # return data
+    return False
 
 
 if __name__ == '__main__':
