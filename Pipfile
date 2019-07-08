@@ -9,6 +9,8 @@ verify_ssl = true
 lxml = "*"
 bs4 = "*"
 requests = "*"
+backtrader = "*"
+ta-lib = "*"
 
 [requires]
 python_version = "3.7"
