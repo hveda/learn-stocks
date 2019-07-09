@@ -137,12 +137,17 @@ def load_csv_data(stock, interval='1d', day_begin='00-00-0000', day_end=None):
 
     stock_yf = stock + '.JK'
     logger.info("Start pulling data for stock {}".format(stock))
-    proxies = get_proxies()
+    len_proxies = 0
+    while not len_proxies:
+        proxies = get_proxies()
+        len_proxies = len(proxies)
 
     proxy_pool = cycle(proxies)
+    logger.debug(len(proxies))
     for i in range(1, len(proxies) + 1):
         try:
             proxy = next(proxy_pool)
+            logger.debug(proxy)
             header, crumb, cookies = _get_crumbs_and_cookies(stock_yf, proxy)
 
             with requests.session():
