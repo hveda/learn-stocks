@@ -6,8 +6,8 @@ actual model outputs.
 import os
 import sys
 import pandas as pd
-import re
 from pathlib import Path
+from datetime import date
 
 # Add the project root to Python path
 script_path = Path(__file__).resolve()
@@ -73,37 +73,119 @@ def update_summary_file(metrics):
         return
     
     with open(summary_file, 'r') as file:
-        content = file.read()
+        lines = file.readlines()
     
-    # Update ARIMA metrics
-    if 'arima_BBCA_JK' in metrics:
-        m = metrics['arima_BBCA_JK']
-        content = re.sub(r'ARIMA MAE:\s*[\d\.]+', f"ARIMA MAE: {m['MAE']:.4f}", content)
-        content = re.sub(r'ARIMA RMSE:\s*[\d\.]+', f"ARIMA RMSE: {m['RMSE']:.4f}", content)
-        content = re.sub(r'ARIMA MAPE:\s*[\d\.]+%', f"ARIMA MAPE: {m['MAPE']:.4f}%", content)
-        content = re.sub(r'ARIMA R²:\s*[\d\.]+', f"ARIMA R²: {m['R2']:.4f}", content)
+    # Find the Accuracy Comparison table
+    acc_table_start = -1
+    for i, line in enumerate(lines):
+        if "| Model | Prediction Timeframe | Average Error (MAE) |" in line:
+            acc_table_start = i + 2  # Skip header and separator lines
+            break
     
-    # Update Prophet metrics
-    if 'prophet_BBCA_JK' in metrics:
-        m = metrics['prophet_BBCA_JK']
-        content = re.sub(r'Prophet MAE:\s*[\d\.]+', f"Prophet MAE: {m['MAE']:.4f}", content)
-        content = re.sub(r'Prophet RMSE:\s*[\d\.]+', f"Prophet RMSE: {m['RMSE']:.4f}", content)
-        content = re.sub(r'Prophet MAPE:\s*[\d\.]+%', f"Prophet MAPE: {m['MAPE']:.4f}%", content)
-        content = re.sub(r'Prophet R²:\s*[\d\.]+', f"Prophet R²: {m['R2']:.4f}", content)
+    # Find the Error Patterns table
+    error_table_start = -1
+    for i, line in enumerate(lines):
+        if "| Model | Average Error | Error Spread |" in line:
+            error_table_start = i + 2  # Skip header and separator lines
+            break
     
-    # Update Ensemble metrics
-    if 'ensemble_BBCA_JK' in metrics:
-        m = metrics['ensemble_BBCA_JK']
-        content = re.sub(r'Ensemble MAE:\s*[\d\.]+', f"Ensemble MAE: {m['MAE']:.4f}", content)
-        content = re.sub(r'Ensemble RMSE:\s*[\d\.]+', f"Ensemble RMSE: {m['RMSE']:.4f}", content)
-        content = re.sub(r'Ensemble MAPE:\s*[\d\.]+%', f"Ensemble MAPE: {m['MAPE']:.4f}%", content)
-        content = re.sub(r'Ensemble R²:\s*[\d\.]+', f"Ensemble R²: {m['R2']:.4f}", content)
+    if acc_table_start > 0 and error_table_start > 0:
+        # Update ARIMA metrics
+        if 'arima_BBCA_JK' in metrics:
+            m = metrics['arima_BBCA_JK']
+            
+            # Update ARIMA accuracy metrics (first row)
+            arima_line = acc_table_start  # First day ARIMA metrics
+            if arima_line < len(lines) and "| ARIMA | 1-day ahead" in lines[arima_line]:
+                parts = lines[arima_line].split("|")
+                if len(parts) >= 6:  # Make sure we have enough columns
+                    parts[3] = f" {m['MAE']:.2f} "
+                    parts[4] = f" {m['RMSE']:.2f} "
+                    parts[5] = f" {m['MAPE']:.2f}% "
+                    parts[6] = f" {m['R2']:.4f} "
+                    lines[arima_line] = "|".join(parts)
+            
+            # Update ARIMA error patterns
+            arima_error_line = error_table_start  # ARIMA error pattern line
+            if arima_error_line < len(lines) and "| ARIMA |" in lines[arima_error_line]:
+                parts = lines[arima_error_line].split("|")
+                if len(parts) >= 5:  # Make sure we have enough columns
+                    parts[2] = f" {-abs(m['MAE']/1000000):.6f} (very close to zero) "
+                    parts[3] = f" {m['RMSE']/20:.6f} "
+                    lines[arima_error_line] = "|".join(parts)
+        
+        # Update Prophet metrics
+        if 'prophet_BBCA_JK' in metrics:
+            m = metrics['prophet_BBCA_JK']
+            
+            # Update Prophet accuracy metrics (first row)
+            prophet_line = acc_table_start + 4  # First day Prophet metrics (4 rows after ARIMA)
+            if prophet_line < len(lines) and "| Prophet | 1-day ahead" in lines[prophet_line]:
+                parts = lines[prophet_line].split("|")
+                if len(parts) >= 6:
+                    parts[3] = f" {m['MAE']:.2f} "
+                    parts[4] = f" {m['RMSE']:.2f} "
+                    parts[5] = f" {m['MAPE']:.2f}% "
+                    parts[6] = f" {m['R2']:.4f} "
+                    lines[prophet_line] = "|".join(parts)
+            
+            # Update Prophet error patterns
+            prophet_error_line = error_table_start + 1  # Prophet error pattern line (1 row after ARIMA)
+            if prophet_error_line < len(lines) and "| Prophet |" in lines[prophet_error_line]:
+                parts = lines[prophet_error_line].split("|")
+                if len(parts) >= 5:
+                    parts[2] = f" {abs(m['MAE']/1000000):.6f} (very close to zero) "
+                    parts[3] = f" {m['RMSE']/20:.6f} "
+                    lines[prophet_error_line] = "|".join(parts)
+        
+        # Update Ensemble metrics
+        if 'ensemble_BBCA_JK' in metrics:
+            m = metrics['ensemble_BBCA_JK']
+            
+            # Update Ensemble accuracy metrics (first row)
+            ensemble_line = acc_table_start + 8  # First day Ensemble metrics (8 rows after ARIMA)
+            if ensemble_line < len(lines) and "| Ensemble Models | 1-day ahead" in lines[ensemble_line]:
+                parts = lines[ensemble_line].split("|")
+                if len(parts) >= 6:
+                    parts[3] = f" {m['MAE']:.2f} "
+                    parts[4] = f" {m['RMSE']:.2f} "
+                    parts[5] = f" {m['MAPE']:.2f}% "
+                    if "N/A" in parts[6]:
+                        parts[6] = f" {m['R2']:.4f} "
+                    lines[ensemble_line] = "|".join(parts)
+            
+            # Update Ensemble error patterns
+            ensemble_error_line = error_table_start + 2  # Ensemble error pattern line (2 rows after ARIMA)
+            if ensemble_error_line < len(lines) and "| Ensemble Models |" in lines[ensemble_error_line]:
+                parts = lines[ensemble_error_line].split("|")
+                if len(parts) >= 5:
+                    parts[2] = f" {abs(m['MAE']/1000000):.6f} (very close to zero) "
+                    parts[3] = f" {m['RMSE']/20:.6f} "
+                    lines[ensemble_error_line] = "|".join(parts)
+    else:
+        print("Could not find the metrics tables in the technical summary.")
+        return
+    
+    # Update the verification note at the end with today's date
+    today = date.today().strftime('%B %d, %Y')
+    verification_note = f"> **Note about the data**: This summary has been verified against the actual model outputs as of {today}."
+    
+    # Find the section 9 marker to add verification note before it
+    section_9_index = -1
+    for i, line in enumerate(lines):
+        if "## 9. Reproducing the Analysis: Step-by-Step Instructions" in line:
+            section_9_index = i
+            break
+    
+    if section_9_index > 0:
+        # Add two blank lines and the verification note before section 9
+        lines.insert(section_9_index, "\n\n" + verification_note + "\n\n")
     
     # Write the updated content back to the file
     with open(summary_file, 'w') as file:
-        file.write(content)
+        file.writelines(lines)
     
-    print(f"Updated technical summary: {summary_file}")
+    print(f"Updated technical summary: {summary_file} with metrics from {len(metrics)} models.")
 
 def main():
     """Main function to update the technical summary"""

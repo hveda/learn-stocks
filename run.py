@@ -367,6 +367,13 @@ def run_dashboard():
     run_dashboard_server()
 
 
+def run_update_summary():
+    """Update the consolidated technical summary with the latest metrics"""
+    print("Updating technical summary with latest metrics...")
+    from scripts.update_technical_summary import main as update_summary
+    update_summary()
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Stock Market ML Project Runner")
     parser.add_argument("--setup", action="store_true", help="Run project setup script")
@@ -387,6 +394,7 @@ if __name__ == "__main__":
     parser.add_argument("--alerts", action="store_true", help="Run market alerts")
     parser.add_argument("--dashboard", action="store_true", help="Launch dashboard")
     parser.add_argument("--visualize", action="store_true", help="Generate presentation visualizations")
+    parser.add_argument("--update-summary", action="store_true", help="Update technical summary document with latest metrics")
     parser.add_argument("--all", action="store_true", help="Run full workflow")
     
     args = parser.parse_args()
@@ -427,6 +435,10 @@ if __name__ == "__main__":
         print("Generating reports...")
         run_reporting()
         
+    if args.update_summary or args.all:
+        print("Updating technical summary document...")
+        run_update_summary()
+        
     if args.risk or args.all:
         run_risk_assessment()
         
@@ -439,9 +451,13 @@ if __name__ == "__main__":
     if args.visualize:
         print("Generating presentation visualizations...")
         run_reporting()
+    
+    if args.update_summary:
+        print("Updating technical summary document...")
+        run_update_summary()
         
     if not any([args.setup, args.collect, args.process, args.explore,
                 args.train, args.train_arima, args.train_prophet, 
                 args.train_ensemble, args.report, args.risk, args.alerts,
-                args.dashboard, args.visualize, args.all]):
+                args.dashboard, args.visualize, args.update_summary, args.all]):
         parser.print_help()

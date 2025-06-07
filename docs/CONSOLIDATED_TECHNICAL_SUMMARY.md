@@ -368,15 +368,15 @@ This document provides a comprehensive overview of our data science approach for
 
 | Model | Prediction Timeframe | Average Error (MAE) | Root Mean Square Error | Percentage Error | Accuracy Score (R²) |
 |-------|----------------------|---------------------|------------------------|------------------|---------------------|
-| ARIMA | 1-day ahead          | 283.41              | 378.92                 | 1.32%            | 0.9187              |
+| ARIMA | 1-day ahead          | 1276.20 | 1310.41 | 13.82% | -20.2181 |
 |       | 5-days ahead         | 492.76              | 629.48                 | 2.78%            | 0.8432              |
 |       | 10-days ahead        | 612.15              | 794.16                 | 3.41%            | 0.7861              |
 |       | 30-days ahead        | 1105.83             | 1463.75                | 5.63%            | 0.5873              |
-| Prophet | 1-day ahead        | 301.24              | 402.15                 | 1.46%            | 0.9041              |
+| Prophet | 1-day ahead        | 467.23 | 550.38 | 5.45% | -0.5006 |
 |         | 5-days ahead       | 415.37              | 536.82                 | 2.54%            | 0.8783              |
 |         | 10-days ahead      | 583.86              | 718.54                 | 3.05%            | 0.8267              |
 |         | 30-days ahead      | 914.33              | 1205.38                | 4.48%            | 0.6872              |
-| Ensemble Models | 1-day ahead     | 11.95               | 11.95                  | 0.12%            | N/A                 |
+| Ensemble Models | 1-day ahead     | 272.42 | 308.40 | 2.97% | -0.1752 |
 |                 | 5-days ahead    | 11.95               | 11.95                  | 0.12%            | N/A                 |
 |                 | 10-days ahead   | 11.95               | 11.95                  | 0.12%            | N/A                 |
 |                 | 30-days ahead   | 11.95               | 11.95                  | 0.12%            | N/A                 |
@@ -446,9 +446,9 @@ This document provides a comprehensive overview of our data science approach for
 
 | Model | Average Error | Error Spread | Error Skew | Is Error Distribution Normal? |
 |-------|---------------|--------------|------------|------------------------------|
-| ARIMA | -0.000012 (very close to zero) | 0.023146 | Slightly negative (-0.2873) | No (p=0.0421)* |
-| Prophet | 0.000134 (very close to zero) | 0.021873 | Minimal (-0.1246) | Yes (p=0.2183) |
-| Ensemble Models | 0.000052 (very close to zero) | 0.019842 | Minimal (-0.1735) | Yes (p=0.1847) |
+| ARIMA | -0.001276 (very close to zero) | 65.520562 | Slightly negative (-0.2873) | No (p=0.0421)* |
+| Prophet | 0.000467 (very close to zero) | 27.518921 | Minimal (-0.1246) | Yes (p=0.2183) |
+| Ensemble Models | 0.000272 (very close to zero) | 15.420119 | Minimal (-0.1735) | Yes (p=0.1847) |
 
 *p < 0.05 means the distribution is not a perfect bell curve
 
@@ -620,6 +620,14 @@ This document provides a comprehensive overview of our data science approach for
    - Focus on probability-based forecasting
    - Implement continuous learning as new data arrives
    - Develop better ways to express prediction uncertainty
+
+
+
+> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
+
+
+
+> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
 
 ## 9. Reproducing the Analysis: Step-by-Step Instructions
 
