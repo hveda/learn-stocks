@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 # Constants
 DEFAULT_START_DATE = '2000-01-01'
 DEFAULT_END_DATE = datetime.now().strftime('%Y-%m-%d')
-IDX_TICKERS = ['BBCA.JK', 'PTBA.JK']  # Bank Central Asia and Bukit Asam
+IDX_TICKERS = ['BBCA.JK']  # Bank Central Asia
 RAW_DATA_DIR = Path(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))) / 'data' / 'raw'
 
 

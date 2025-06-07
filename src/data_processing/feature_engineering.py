@@ -188,9 +188,12 @@ def engineer_features(df, ticker):
     
     return df_features
 
-def time_series_split(df, ticker, train_size=0.7, val_size=0.15, test_size=0.15):
+def time_series_split(df, ticker):
     """
-    Perform time series split for training/validation/testing
+    Perform time series split for training/validation/testing based on dates:
+    - Training: oldest data up to 2022-12-31
+    - Validation: 2023-01-01 to 2024-12-31
+    - Testing: 2025-01-01 to present
     
     Parameters:
     -----------
@@ -198,12 +201,6 @@ def time_series_split(df, ticker, train_size=0.7, val_size=0.15, test_size=0.15)
         DataFrame containing the data with engineered features
     ticker : str
         The stock ticker symbol
-    train_size : float
-        Proportion of data to use for training
-    val_size : float
-        Proportion of data to use for validation
-    test_size : float
-        Proportion of data to use for testing
         
     Returns:
     --------
@@ -214,20 +211,25 @@ def time_series_split(df, ticker, train_size=0.7, val_size=0.15, test_size=0.15)
         logger.error(f"No data for time series splitting for {ticker}")
         return None, None, None
     
-    logger.info(f"Splitting time series data for {ticker}")
+    logger.info(f"Splitting time series data for {ticker} by date")
     
     # Ensure the DataFrame is sorted by date
     df = df.sort_index()
     
-    # Calculate split points
-    n = len(df)
-    train_end = int(n * train_size)
-    val_end = train_end + int(n * val_size)
+    # Define split dates - handle timezone awareness
+    if df.index.tz is not None:
+        # If the index is timezone-aware, make the split dates timezone-aware too
+        train_end_date = pd.Timestamp('2022-12-31', tz=df.index.tz)
+        val_end_date = pd.Timestamp('2024-12-31', tz=df.index.tz)
+    else:
+        # If the index is timezone-naive, use naive timestamps
+        train_end_date = pd.Timestamp('2022-12-31')
+        val_end_date = pd.Timestamp('2024-12-31')
     
-    # Split the data
-    train_df = df.iloc[:train_end]
-    val_df = df.iloc[train_end:val_end]
-    test_df = df.iloc[val_end:]
+    # Split the data using date ranges
+    train_df = df[df.index <= train_end_date]
+    val_df = df[(df.index > train_end_date) & (df.index <= val_end_date)]
+    test_df = df[df.index > val_end_date]
     
     logger.info(f"Time series split completed for {ticker}:")
     logger.info(f"Train set: {train_df.shape}, from {train_df.index[0]} to {train_df.index[-1]}")

@@ -13,7 +13,7 @@
 ## Data Collection
 - [x] Create a Python script to crawl stock market data
   - [x] Selected API: Yahoo Finance for data acquisition
-  - [x] Selected IDX tickers: BBCA.JK (Bank Central Asia) and PTBA.JK (Bukit Asam)
+  - [x] Selected IDX ticker: BBCA.JK (Bank Central Asia)
   - [x] Implement data fetching for historical price data (OHLCV - Open, High, Low, Close, Volume)
   - [x] Configure data collection for long-term historical data (since 2000 if available)
   - [x] Add functionality to fetch company fundamentals (PE ratio, market cap, etc.)

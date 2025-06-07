@@ -18,6 +18,10 @@ pmdarima==2.0.4  # Successfully installed with Python 3.12.7
 matplotlib==3.8.3
 seaborn==0.13.2
 plotly==5.21.0
+dash==2.15.0
+dash-bootstrap-components==1.5.0
+dash-core-components==2.0.0
+dash-html-components==2.0.0
 mplfinance==0.12.10b0
 
 # Prophet for time series forecasting

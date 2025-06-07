@@ -14,7 +14,10 @@ import os
 import logging
 import pandas as pd
 import numpy as np
+import warnings
 from pathlib import Path
+# Filter sklearn deprecation warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="sklearn")
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 # Configure logging

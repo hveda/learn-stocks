@@ -2,6 +2,18 @@
 
 This project implements a machine learning pipeline for stock market data analysis and prediction, focusing on Indonesian Stock Exchange (IDX) data. The project follows a structured pipeline approach with clear separation of concerns.
 
+## Technical Documentation
+
+For a detailed technical overview of the implementation, methodology, and results, see [CONSOLIDATED_TECHNICAL_SUMMARY.md](CONSOLIDATED_TECHNICAL_SUMMARY.md). This document provides comprehensive information about:
+
+- Data acquisition and preprocessing techniques
+- Feature engineering methodologies
+- Time series analysis approaches
+- Predictive modeling implementation
+- Model evaluation framework
+- Detailed performance results
+- System implementation details
+
 ## Project Structure
 
 ```
@@ -21,9 +33,15 @@ machine-learning/
 │   │   ├── feature_engineering.py  # Feature engineering and splitting module
 │   │   ├── process_data.py    # Main data processing orchestrator
 │   │   └── technical_indicators.py  # Technical indicators module
-│   ├── exploratory_analysis/  # Code for exploratory data analysis
-│   ├── modeling/              # Code for model development
-│   └── reporting/             # Code for generating reports and visualizations
+│   ├── exploration/           # Code for exploratory data analysis
+│   │   ├── eda_basic_stats.py # Basic statistical analysis
+│   │   └── eda_time_series.py # Time series specific analysis
+│   ├── models/                # Code for model development
+│   │   ├── arima_model.py     # ARIMA model implementation
+│   │   └── prophet_model.py   # Prophet model implementation
+│   └── analysis/              # Code for advanced analysis
+│       ├── risk_assessment.py # Trading strategy risk assessment
+│       └── market_alerts.py   # Market alerts and notification system
 ├── run.py                     # Main runner script with CLI interface
 ├── run_pipeline.sh            # Shell script to run the full pipeline
 ├── requirements.txt           # Python dependencies
@@ -173,6 +191,37 @@ The project employs two primary forecasting models:
 
 Both models are configured to forecast medium-term (weeks to months) price trends.
 
+### Risk Assessment
+
+The project includes a comprehensive risk assessment module to evaluate trading strategies based on the forecasting models:
+
+1. **Trading Strategy Simulation**
+   - Simulates trading based on model forecasts
+   - Implements multiple signal generation strategies (crossover, threshold, confidence)
+   - Compares different model performance in trading scenarios
+
+2. **Risk Metrics**
+   - Sharpe Ratio calculation to evaluate risk-adjusted returns
+   - Maximum Drawdown analysis to assess potential losses
+   - Value-at-Risk (VaR) estimation using multiple methods
+   - Win/Loss ratio and Profit Factor calculations
+
+### Market Alerts
+
+The project features a market alerts system to identify significant market events:
+
+1. **Alert Types**
+   - Price movement alerts for sudden price changes
+   - Volatility alerts for abnormal market volatility
+   - Technical indicator alerts (RSI, MACD, etc.)
+   - Forecast-based alerts when model predictions change significantly
+
+2. **Alert Management**
+   - Alert severity levels (INFO, WARNING, CRITICAL)
+   - Email notification capability for critical alerts
+   - Historical alert storage and analysis
+   - Visual alert reporting and dashboards
+
 ## Visualization
 
 The project uses two main visualization libraries:
@@ -184,7 +233,62 @@ The project uses two main visualization libraries:
 2. **Plotly**
    - Used for interactive visualizations
    - Allows for zooming, hovering, and exploration of data
-   - Used in dashboards for model insights
+   - Used in interactive dashboard for model insights, risk assessment, and market alerts
+
+## Usage
+
+### Running the Pipeline
+
+The entire pipeline can be executed using the run_pipeline.sh script:
+
+```bash
+./run_pipeline.sh
+```
+
+Alternatively, specific components can be run using the run.py command-line interface:
+
+```bash
+# Data collection
+python run.py --collect
+
+# Data processing
+python run.py --process
+
+# Exploratory analysis
+python run.py --explore
+
+# Model training
+python run.py --train
+
+# Reporting
+python run.py --report
+
+# Risk assessment
+python run.py --risk
+
+# Market alerts
+python run.py --alerts
+
+# Launch interactive dashboard
+python run.py --dashboard
+
+# Run everything
+python run.py --all
+```
+
+### Interactive Dashboard
+
+The project includes an interactive dashboard that visualizes:
+- Price forecasts and historical data
+- Model performance metrics and comparisons
+- Risk assessment of trading strategies
+- Market alerts and notifications
+
+Launch the dashboard with:
+```bash
+python run.py --dashboard
+```
+Then open a web browser at http://127.0.0.1:8050/
 
 ## Contributing
 

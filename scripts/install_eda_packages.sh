@@ -1,7 +1,6 @@
 #!/bin/zsh
 # Script to install required packages for exploratory data analysis
 
-# Install EDA packages
 echo "Installing visualization packages..."
 pip install matplotlib==3.8.3
 pip install seaborn==0.13.2

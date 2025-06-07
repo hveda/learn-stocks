@@ -180,8 +180,8 @@ def validate_data(df, ticker, logger):
 def main():
     """Main function to run the data collection."""
     parser = argparse.ArgumentParser(description="Stock data crawler for Yahoo Finance")
-    parser.add_argument("--tickers", nargs="+", default=["BBCA.JK", "PTBA.JK"], 
-                      help="Stock ticker symbols (default: BBCA.JK PTBA.JK)")
+    parser.add_argument("--tickers", nargs="+", default=["BBCA.JK"], 
+                      help="Stock ticker symbols (default: BBCA.JK)")
     parser.add_argument("--start-date", default="2000-01-01", 
                       help="Start date in YYYY-MM-DD format (default: 2000-01-01)")
     parser.add_argument("--end-date", default=datetime.now().strftime("%Y-%m-%d"), 
