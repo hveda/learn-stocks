@@ -66,7 +66,7 @@ def read_model_metrics():
 
 def update_summary_file(metrics):
     """Update the consolidated technical summary file with actual metrics"""
-    summary_file = PROJECT_ROOT / "CONSOLIDATED_TECHNICAL_SUMMARY.md"
+    summary_file = PROJECT_ROOT / "docs/CONSOLIDATED_TECHNICAL_SUMMARY.md"
     
     if not summary_file.exists():
         print(f"Summary file not found: {summary_file}")

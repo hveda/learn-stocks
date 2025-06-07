@@ -83,6 +83,69 @@ def run_model_training():
     print(f"Processing {ticker} with Ensemble method...")
     run_ensemble_analysis(ticker, method='weighted_average')
 
+def run_arima_training():
+    """Run ARIMA model training only"""
+    from src.models.arima_model import run_arima_analysis
+    
+    # Ticker to analyze - focusing only on BBCA.JK
+    ticker = 'BBCA.JK'
+    
+    # Create necessary directories
+    model_dir = Path(os.path.dirname(__file__)) / 'models' / 'arima'
+    results_dir = Path(os.path.dirname(__file__)) / 'results' / 'arima'
+    plots_dir = results_dir / 'plots'
+    
+    model_dir.mkdir(parents=True, exist_ok=True)
+    results_dir.mkdir(parents=True, exist_ok=True)
+    plots_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Run ARIMA model training and forecasting
+    print("Training ARIMA model...")
+    print(f"Processing {ticker} with ARIMA...")
+    run_arima_analysis(ticker, forecast_periods=30)
+
+def run_prophet_training():
+    """Run Prophet model training only"""
+    from src.models.prophet_model import run_prophet_analysis
+    
+    # Ticker to analyze - focusing only on BBCA.JK
+    ticker = 'BBCA.JK'
+    
+    # Create necessary directories
+    model_dir = Path(os.path.dirname(__file__)) / 'models' / 'prophet'
+    results_dir = Path(os.path.dirname(__file__)) / 'results' / 'prophet'
+    plots_dir = results_dir / 'plots'
+    
+    model_dir.mkdir(parents=True, exist_ok=True)
+    results_dir.mkdir(parents=True, exist_ok=True)
+    plots_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Run Prophet model training and forecasting
+    print("Training Prophet model...")
+    print(f"Processing {ticker} with Prophet...")
+    run_prophet_analysis(ticker, forecast_periods=30)
+
+def run_ensemble_training():
+    """Run Ensemble model training only"""
+    from src.models.ensemble_model import run_ensemble_analysis
+    
+    # Ticker to analyze - focusing only on BBCA.JK
+    ticker = 'BBCA.JK'
+    
+    # Create necessary directories
+    model_dir = Path(os.path.dirname(__file__)) / 'models' / 'ensemble'
+    results_dir = Path(os.path.dirname(__file__)) / 'results' / 'ensemble'
+    plots_dir = results_dir / 'plots'
+    
+    model_dir.mkdir(parents=True, exist_ok=True)
+    results_dir.mkdir(parents=True, exist_ok=True)
+    plots_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Run Ensemble model to combine ARIMA and Prophet forecasts
+    print("Creating ensemble forecast...")
+    print(f"Processing {ticker} with Ensemble method...")
+    run_ensemble_analysis(ticker, method='weighted_average')
+
 def run_reporting():
     """Generate reports and visualizations for model comparison"""
     import pandas as pd
@@ -309,12 +372,21 @@ if __name__ == "__main__":
     parser.add_argument("--setup", action="store_true", help="Run project setup script")
     parser.add_argument("--collect", action="store_true", help="Run data collection")
     parser.add_argument("--process", action="store_true", help="Run data processing")
-    parser.add_argument("--explore", action="store_true", help="Run exploratory analysis")
+    parser.add_argument("--explore", action="store_true", 
+                        help="Run exploratory analysis")
     parser.add_argument("--train", action="store_true", help="Train ML models")
-    parser.add_argument("--report", action="store_true", help="Generate reports")
+    parser.add_argument("--train-arima", action="store_true", 
+                        help="Train ARIMA model only")
+    parser.add_argument("--train-prophet", action="store_true", 
+                        help="Train Prophet model only")
+    parser.add_argument("--train-ensemble", action="store_true", 
+                        help="Train Ensemble model only")
+    parser.add_argument("--report", action="store_true", 
+                        help="Generate reports")
     parser.add_argument("--risk", action="store_true", help="Run risk assessment")
     parser.add_argument("--alerts", action="store_true", help="Run market alerts")
     parser.add_argument("--dashboard", action="store_true", help="Launch dashboard")
+    parser.add_argument("--visualize", action="store_true", help="Generate presentation visualizations")
     parser.add_argument("--all", action="store_true", help="Run full workflow")
     
     args = parser.parse_args()
@@ -339,6 +411,18 @@ if __name__ == "__main__":
         print("Training ML models...")
         run_model_training()
         
+    if args.train_arima:
+        print("Training ARIMA model...")
+        run_arima_training()
+        
+    if args.train_prophet:
+        print("Training Prophet model...")
+        run_prophet_training()
+        
+    if args.train_ensemble:
+        print("Training Ensemble model...")
+        run_ensemble_training()
+        
     if args.report or args.all:
         print("Generating reports...")
         run_reporting()
@@ -352,5 +436,12 @@ if __name__ == "__main__":
     if args.dashboard or args.all:
         run_dashboard()
         
-    if not any([args.setup, args.collect, args.process, args.explore, args.train, args.report, args.risk, args.alerts, args.dashboard, args.all]):
+    if args.visualize:
+        print("Generating presentation visualizations...")
+        run_reporting()
+        
+    if not any([args.setup, args.collect, args.process, args.explore,
+                args.train, args.train_arima, args.train_prophet, 
+                args.train_ensemble, args.report, args.risk, args.alerts,
+                args.dashboard, args.visualize, args.all]):
         parser.print_help()

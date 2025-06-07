@@ -1,8 +1,8 @@
 {
     "close": {
         "ADF": {
-            "ADF Statistic": 0.9246492610964544,
-            "p-value": 0.9934037200647371,
+            "ADF Statistic": 0.9246497427817718,
+            "p-value": 0.9934037260298342,
             "Lags": 31,
             "Observations": 4940,
             "Critical Values": {
@@ -12,7 +12,7 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 10.55893688092403,
+            "KPSS Statistic": 10.558936914309355,
             "p-value": 0.01,
             "Lags": 42,
             "Critical Values": {
@@ -25,8 +25,8 @@
     },
     "returns": {
         "ADF": {
-            "ADF Statistic": -13.787395947593843,
-            "p-value": 9.058388395370028e-26,
+            "ADF Statistic": -13.787398452027958,
+            "p-value": 9.058296252640897e-26,
             "Lags": 32,
             "Observations": 4939,
             "Critical Values": {
@@ -36,7 +36,7 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 0.16445917415624203,
+            "KPSS Statistic": 0.16445916229883348,
             "p-value": 0.1,
             "Lags": 37,
             "Critical Values": {
@@ -49,8 +49,8 @@
     },
     "log_price": {
         "ADF": {
-            "ADF Statistic": -1.4424780140748739,
-            "p-value": 0.56175085138363,
+            "ADF Statistic": -1.4424775537232026,
+            "p-value": 0.5617510754713156,
             "Lags": 22,
             "Observations": 4949,
             "Critical Values": {
@@ -60,7 +60,7 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 11.425254305834104,
+            "KPSS Statistic": 11.425254300475718,
             "p-value": 0.01,
             "Lags": 42,
             "Critical Values": {
@@ -73,8 +73,8 @@
     },
     "diff_log_price": {
         "ADF": {
-            "ADF Statistic": -13.727866802063938,
-            "p-value": 1.1549480518675835e-25,
+            "ADF Statistic": -13.727868779078209,
+            "p-value": 1.1549386886757403e-25,
             "Lags": 32,
             "Observations": 4938,
             "Critical Values": {
@@ -84,7 +84,7 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 0.08901405126492408,
+            "KPSS Statistic": 0.08901405897227817,
             "p-value": 0.1,
             "Lags": 36,
             "Critical Values": {
