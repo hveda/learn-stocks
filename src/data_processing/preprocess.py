@@ -85,21 +85,21 @@ def handle_missing_values(df, method='ffill'):
     # Handle missing values based on method
     try:
         if method == 'ffill':
-            df = df.fillna(method='ffill')
+            df = df.ffill()
             # If there are still NaNs at the beginning, fill them with bfill
-            df = df.fillna(method='bfill')
+            df = df.bfill()
         elif method == 'bfill':
-            df = df.fillna(method='bfill')
-            df = df.fillna(method='ffill')  # Handle beginning values
+            df = df.bfill()
+            df = df.ffill()  # Handle beginning values
         elif method == 'linear':
             df = df.interpolate(method='linear')
-            df = df.fillna(method='ffill').fillna(method='bfill')  # Handle edges
+            df = df.ffill().bfill()  # Handle edges
         elif method == 'mean':
             for col in df.columns:
                 df[col] = df[col].fillna(df[col].mean())
         else:
             logger.warning(f"Unsupported missing value handling method: {method}. Using ffill instead.")
-            df = df.fillna(method='ffill').fillna(method='bfill')
+            df = df.ffill().bfill()
     
         # Count missing values after treatment
         missing_after = df.isna().sum()

@@ -96,10 +96,10 @@ def clean_data(df, ticker):
     
     # Forward fill for price data (use previous day's data)
     price_cols = ['Open', 'High', 'Low', 'Close']
-    df_cleaned[price_cols] = df_cleaned[price_cols].fillna(method='ffill')
+    df_cleaned[price_cols] = df_cleaned[price_cols].ffill()
     
     # For remaining missing price data (e.g., at the beginning), use next day's data
-    df_cleaned[price_cols] = df_cleaned[price_cols].fillna(method='bfill')
+    df_cleaned[price_cols] = df_cleaned[price_cols].bfill()
     
     # For Volume, Dividends, and Stock Splits, fill with 0
     fill_zero_cols = ['Volume', 'Dividends', 'Stock Splits']

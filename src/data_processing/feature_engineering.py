@@ -175,7 +175,7 @@ def engineer_features(df, ticker):
     # Forward fill for price data and technical indicators
     price_cols = ['Open', 'High', 'Low', 'Close', 'MA5', 'MA10', 'MA20', 'MA50', 'MA200',
                   'EMA5', 'EMA10', 'EMA20', 'EMA50', 'EMA200', 'BB_Upper', 'BB_Middle', 'BB_Lower']
-    df_features[price_cols] = df_features[price_cols].fillna(method='ffill')
+    df_features[price_cols] = df_features[price_cols].ffill()
     
     # Drop rows with NaN target values at the end of the dataframe
     # These are rows where we don't have future data to create target variables

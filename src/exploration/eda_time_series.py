@@ -16,6 +16,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
+import warnings
 from pathlib import Path
 from scipy import stats
 from statsmodels.tsa.seasonal import seasonal_decompose
@@ -101,7 +102,7 @@ def perform_time_series_decomposition(df, ticker, period=252):
         weekly_period = 52
         
         # Fill any missing values with forward fill to ensure decomposition works
-        df_weekly = df_weekly.fillna(method='ffill')
+        df_weekly = df_weekly.ffill()
         
         decomposition = seasonal_decompose(df_weekly, model='multiplicative', period=weekly_period)
         
@@ -205,10 +206,20 @@ def test_stationarity(df, ticker):
             
             # KPSS Test (null hypothesis: series is stationary)
             try:
-                kpss_result = kpss(series.dropna(), regression='c')
+                # Run KPSS test with warnings filtered
+                with warnings.catch_warnings(record=True) as w:
+                    warnings.filterwarnings('always', category=UserWarning)
+                    # Change from 'c' (constant) to 'ct' (constant and trend)
+                    kpss_result = kpss(series.dropna(), regression='ct')
+                    
+                    # Check if we got the p-value warning
+                    if w and "p-value" in str(w[0].message):
+                        logger.info(f"KPSS test for {name} of {ticker}: p-value is smaller than the reported value")
+                
                 kpss_output = {
                     'KPSS Statistic': kpss_result[0],
                     'p-value': kpss_result[1],
+                    'p-value_note': 'May be smaller than reported' if kpss_result[1] == 0.01 else '',
                     'Lags': kpss_result[2],
                     'Critical Values': kpss_result[3]
                 }

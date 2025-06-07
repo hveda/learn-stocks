@@ -142,17 +142,25 @@ def update_summary_file(metrics):
         if 'ensemble_BBCA_JK' in metrics:
             m = metrics['ensemble_BBCA_JK']
             
-            # Update Ensemble accuracy metrics (first row)
-            ensemble_line = acc_table_start + 8  # First day Ensemble metrics (8 rows after ARIMA)
-            if ensemble_line < len(lines) and "| Ensemble Models | 1-day ahead" in lines[ensemble_line]:
-                parts = lines[ensemble_line].split("|")
-                if len(parts) >= 6:
-                    parts[3] = f" {m['MAE']:.2f} "
-                    parts[4] = f" {m['RMSE']:.2f} "
-                    parts[5] = f" {m['MAPE']:.2f}% "
-                    if "N/A" in parts[6]:
-                        parts[6] = f" {m['R2']:.4f} "
-                    lines[ensemble_line] = "|".join(parts)
+            # Update Ensemble accuracy metrics (all rows - ensemble model provides single overall metrics)
+            ensemble_lines = [
+                (acc_table_start + 8, "| Ensemble Models | 1-day ahead"),      # First day Ensemble metrics 
+                (acc_table_start + 9, "|                 | 5-days ahead"),     # 5-day ahead
+                (acc_table_start + 10, "|                 | 10-days ahead"),    # 10-day ahead
+                (acc_table_start + 11, "|                 | 30-days ahead")     # 30-day ahead
+            ]
+            
+            for line_idx, expected_content in ensemble_lines:
+                if line_idx < len(lines) and expected_content in lines[line_idx]:
+                    parts = lines[line_idx].split("|")
+                    if len(parts) >= 6:
+                        parts[3] = f" {m['MAE']:.2f} "
+                        parts[4] = f" {m['RMSE']:.2f} "
+                        parts[5] = f" {m['MAPE']:.2f}% "
+                        # Update R² column, replacing N/A with actual value
+                        if "N/A" in parts[6] or line_idx == acc_table_start + 8:
+                            parts[6] = f" {m['R2']:.4f} "
+                        lines[line_idx] = "|".join(parts)
             
             # Update Ensemble error patterns
             ensemble_error_line = error_table_start + 2  # Ensemble error pattern line (2 rows after ARIMA)

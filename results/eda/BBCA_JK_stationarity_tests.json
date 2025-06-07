@@ -1,8 +1,8 @@
 {
     "close": {
         "ADF": {
-            "ADF Statistic": 0.9246496492472963,
-            "p-value": 0.993403724871522,
+            "ADF Statistic": 0.9246491689112124,
+            "p-value": 0.9934037189231323,
             "Lags": 31,
             "Observations": 4940,
             "Critical Values": {
@@ -12,21 +12,22 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 10.55893687438675,
+            "KPSS Statistic": 2.589012128255034,
             "p-value": 0.01,
+            "p-value_note": "May be smaller than reported",
             "Lags": 42,
             "Critical Values": {
-                "10%": 0.347,
-                "5%": 0.463,
-                "2.5%": 0.574,
-                "1%": 0.739
+                "10%": 0.119,
+                "5%": 0.146,
+                "2.5%": 0.176,
+                "1%": 0.216
             }
         }
     },
     "returns": {
         "ADF": {
-            "ADF Statistic": -13.78739419777183,
-            "p-value": 9.058452775112898e-26,
+            "ADF Statistic": -13.787400339631974,
+            "p-value": 9.058226804867956e-26,
             "Lags": 32,
             "Observations": 4939,
             "Critical Values": {
@@ -36,21 +37,22 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 0.16445907753903327,
+            "KPSS Statistic": 0.01936827688694568,
             "p-value": 0.1,
+            "p-value_note": "",
             "Lags": 37,
             "Critical Values": {
-                "10%": 0.347,
-                "5%": 0.463,
-                "2.5%": 0.574,
-                "1%": 0.739
+                "10%": 0.119,
+                "5%": 0.146,
+                "2.5%": 0.176,
+                "1%": 0.216
             }
         }
     },
     "log_price": {
         "ADF": {
-            "ADF Statistic": -1.4424779427893488,
-            "p-value": 0.5617508860836438,
+            "ADF Statistic": -1.442477770680908,
+            "p-value": 0.5617509698617325,
             "Lags": 22,
             "Observations": 4949,
             "Critical Values": {
@@ -60,21 +62,22 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 11.4252543046531,
+            "KPSS Statistic": 1.7430791781915398,
             "p-value": 0.01,
+            "p-value_note": "May be smaller than reported",
             "Lags": 42,
             "Critical Values": {
-                "10%": 0.347,
-                "5%": 0.463,
-                "2.5%": 0.574,
-                "1%": 0.739
+                "10%": 0.119,
+                "5%": 0.146,
+                "2.5%": 0.176,
+                "1%": 0.216
             }
         }
     },
     "diff_log_price": {
         "ADF": {
-            "ADF Statistic": -13.727864638861066,
-            "p-value": 1.1549582969438881e-25,
+            "ADF Statistic": -13.727870915146179,
+            "p-value": 1.1549285722900258e-25,
             "Lags": 32,
             "Observations": 4938,
             "Critical Values": {
@@ -84,14 +87,15 @@
             }
         },
         "KPSS": {
-            "KPSS Statistic": 0.08901406123365735,
+            "KPSS Statistic": 0.01696103057362779,
             "p-value": 0.1,
+            "p-value_note": "",
             "Lags": 36,
             "Critical Values": {
-                "10%": 0.347,
-                "5%": 0.463,
-                "2.5%": 0.574,
-                "1%": 0.739
+                "10%": 0.119,
+                "5%": 0.146,
+                "2.5%": 0.176,
+                "1%": 0.216
             }
         }
     }
