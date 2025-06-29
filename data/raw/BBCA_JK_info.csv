@@ -1,0 +1,154 @@
+Attribute,Value
+address1,"Menara BCA, Grand Indonesia"
+address2,Jl. M.H. Thamrin No. 1
+city,Jakarta
+zip,10310
+country,Indonesia
+phone,62 21 2358 8000
+fax,62 21 2358 8300
+website,https://www.bca.co.id
+industry,Banks - Regional
+industryKey,banks-regional
+industryDisp,Banks - Regional
+sector,Financial Services
+sectorKey,financial-services
+sectorDisp,Financial Services
+longBusinessSummary,"PT Bank Central Asia Tbk, together with its subsidiaries, provides banking products and other financial services to individual, corporate, and small and medium enterprise customers in Indonesia and internationally. It operates through Transaction Banking, Corporate Banking, Commercial & Small & Medium Enterprise SME Banking, Individual Banking, and Treasury and International Banking segments. The company offers various products and services, such as individual and business saving, deposit, loan, and electronic money accounts; wealth management services; credit cards; and business collection and investment services. It also provides transaction banking and cash management, electronic banking, and bancassurance services; mutual fund investment products; credit and export import facilities; foreign exchange facilities; and bank guarantees. In addition, the company offers international banking services, such as cross-border remittances, trade finance, and specialized solutions for banks and financial institutions. Further, it offers money lending and remittance, auto financing and multipurpose financing, securities brokerage dealing and securities issuance underwriting, general and life insurance, Sharia banking, and venture capital services. PT Bank Central Asia Tbk was founded in 1955 and is headquartered in Jakarta, Indonesia. PT Bank Central Asia Tbk is a subsidiary of PT Dwimuria Investama Andalan."
+fullTimeEmployees,27758
+companyOfficers,"[{'maxAge': 1, 'name': 'Mr. Hendra  Lembong', 'age': 50, 'title': 'President Director', 'yearBorn': 1974, 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Mr. Armand Wahyudi Hartono', 'age': 48, 'title': 'Deputy President Director', 'yearBorn': 1976, 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Ms. Vera Eve Lim', 'age': 58, 'title': 'Finance & Corporate Planning Director and Director', 'yearBorn': 1966, 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Felix Ivanata Darmasetia', 'title': 'Head of Accounting Group', 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Mr. Raymon  Yonarto', 'age': 54, 'title': 'Executive VP of Corporate Finance & Corporate Secretary', 'yearBorn': 1970, 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Rudy Winarto Budiardjo', 'title': 'Head of Investor Relations Group', 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Mr. Ho Hien Tan', 'age': 63, 'title': 'Credit Risk & Legal Director and Director', 'yearBorn': 1961, 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Ms. Lianawaty  Suwono', 'age': 57, 'title': 'Compliance & Human Capital Management Director and Director', 'yearBorn': 1967, 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'Hera Fendayani Haryn', 'title': 'Head of Corporate Communication & Social Responsibility Group', 'exercisedValue': 0, 'unexercisedValue': 0}, {'maxAge': 1, 'name': 'I. Ketut Alam Wangsawijaya', 'title': 'Head of Transaction Banking Business Development & Marketing Division', 'exercisedValue': 0, 'unexercisedValue': 0}]"
+irWebsite,http://www.bca.co.id/en/about/hubungan-investor/laporan-tahunan/laporan_tahunan_landing.jsp
+executiveTeam,[]
+maxAge,86400
+priceHint,2
+previousClose,8600.0
+open,8525.0
+dayLow,8525.0
+dayHigh,8650.0
+regularMarketPreviousClose,8600.0
+regularMarketOpen,8525.0
+regularMarketDayLow,8525.0
+regularMarketDayHigh,8650.0
+dividendRate,300.0
+dividendYield,3.47
+exDividendDate,1742515200
+payoutRatio,0.65790004
+fiveYearAvgDividendYield,2.13
+beta,0.321
+trailingPE,18.97554
+forwardPE,17.928204
+volume,117283900
+regularMarketVolume,117283900
+averageVolume,113166062
+averageVolume10days,123946180
+averageDailyVolume10Day,123946180
+bid,8625.0
+ask,8650.0
+bidSize,0
+askSize,0
+marketCap,1066320120512512
+fiftyTwoWeekLow,7275.0
+fiftyTwoWeekHigh,10950.0
+priceToSalesTrailing12Months,9.869686
+fiftyDayAverage,9005.5
+twoHundredDayAverage,9478.625
+trailingAnnualDividendRate,300.0
+trailingAnnualDividendYield,0.034883723
+currency,IDR
+tradeable,False
+enterpriseValue,964912184557568
+profitMargins,0.51928
+floatShares,48033665511
+sharesOutstanding,123274002432
+heldPercentInsiders,0.59790003
+heldPercentInstitutions,0.20413
+impliedSharesOutstanding,125781999616
+bookValue,1998.193
+priceToBook,4.3289113
+lastFiscalYearEnd,1735603200
+nextFiscalYearEnd,1767139200
+mostRecentQuarter,1743379200
+earningsQuarterlyGrowth,0.098
+netIncomeToCommon,56102951583744
+trailingEps,455.85
+forwardEps,482.48
+lastSplitFactor,5:1
+lastSplitDate,1634083200
+enterpriseToRevenue,8.931
+52WeekChange,-0.12405062
+SandP52WeekChange,0.12748289
+lastDividendValue,250.0
+lastDividendDate,1742515200
+quoteType,EQUITY
+currentPrice,8650.0
+targetHighPrice,12600.0
+targetLowPrice,8000.0
+targetMeanPrice,11097.591
+targetMedianPrice,11260.0
+recommendationMean,1.43478
+recommendationKey,strong_buy
+numberOfAnalystOpinions,22
+totalCash,106134128033792
+totalCashPerShare,860.962
+totalDebt,4531796049920
+totalRevenue,108039919108096
+revenuePerShare,876.414
+returnOnAssets,0.03769
+returnOnEquity,0.23686
+grossProfits,105939386499072
+operatingCashflow,-2382375944192
+earningsGrowth,0.098
+revenueGrowth,0.069
+grossMargins,0.0
+ebitdaMargins,0.0
+operatingMargins,0.64435
+financialCurrency,IDR
+symbol,BBCA.JK
+language,en-US
+region,US
+typeDisp,Equity
+quoteSourceName,Delayed Quote
+triggerable,False
+customPriceAlertConfidence,LOW
+regularMarketChangePercent,0.5813953
+regularMarketPrice,8650.0
+corporateActions,[]
+regularMarketTime,1750929286
+exchange,JKT
+messageBoardId,finmb_1945186
+exchangeTimezoneName,Asia/Jakarta
+exchangeTimezoneShortName,WIB
+gmtOffSetMilliseconds,25200000
+market,id_market
+esgPopulated,False
+hasPrePostMarketData,False
+firstTradeDateMilliseconds,1086660000000
+regularMarketChange,50.0
+regularMarketDayRange,8525.0 - 8650.0
+fullExchangeName,Jakarta
+averageDailyVolume3Month,113166062
+fiftyTwoWeekLowChange,1375.0
+fiftyTwoWeekLowChangePercent,0.18900344
+fiftyTwoWeekRange,7275.0 - 10950.0
+fiftyTwoWeekHighChange,-2300.0
+fiftyTwoWeekHighChangePercent,-0.21004567
+fiftyTwoWeekChangePercent,-12.405062
+earningsTimestamp,1745405940
+earningsTimestampStart,1753181940
+earningsTimestampEnd,1753704000
+isEarningsDateEstimate,True
+epsTrailingTwelveMonths,455.85
+epsForward,482.48
+epsCurrentYear,469.5742
+priceEpsCurrentYear,18.420944
+fiftyDayAverageChange,-355.5
+fiftyDayAverageChangePercent,-0.039475877
+twoHundredDayAverageChange,-828.625
+twoHundredDayAverageChangePercent,-0.08742038
+sourceInterval,10
+exchangeDataDelayedBy,10
+averageAnalystRating,1.4 - Strong Buy
+cryptoTradeable,False
+shortName,Bank Central Asia Tbk
+longName,PT Bank Central Asia Tbk
+marketState,CLOSED
+trailingPegRatio,2.8947

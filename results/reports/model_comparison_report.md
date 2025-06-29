@@ -19,8 +19,8 @@ This report compares the performance of ARIMA, Prophet, and Ensemble forecasting
 | Model | MAE | RMSE | MAPE | R² |
 |-------|-----|------|------|----|
 | ARIMA | 1276.2004 | 1310.4112 | 13.82% | -20.2181 |
-| Prophet | 467.2273 | 550.3784 | 5.45% | -0.5006 |
-| Ensemble | 272.4213 | 308.4024 | 2.97% | -0.1752 |
+| Prophet | 463.1710 | 551.7582 | 5.33% | -0.4302 |
+| Ensemble | 272.5418 | 308.5016 | 2.97% | -0.1760 |
 
 ## Conclusion
 

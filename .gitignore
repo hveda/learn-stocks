@@ -42,12 +42,13 @@ env/
 *.log
 
 # Data files
-data/raw/
-data/cleaned/
-data/normalized/
-data/indicators/
-data/features/
-data/split/
+# We're tracking data files to ensure reproducibility
+# data/raw/
+# data/cleaned/
+# data/normalized/
+# data/indicators/
+# data/features/
+# data/split/
 
 # Models
 models/
@@ -56,14 +57,14 @@ models/
 # results/
 
 # Image files 
-*.png
+# *.png
 *.jpg
 *.jpeg
 *.gif
 *.svg
 
 # Data formats
-*.csv
+# *.csv
 *.xls
 *.xlsx
 *.parquet

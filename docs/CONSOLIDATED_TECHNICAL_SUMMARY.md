@@ -2,7 +2,15 @@
 
 This document provides a comprehensive overview of our data science approach for analyzing and predicting time series data, written in a way that should be accessible to newcomers to data science.
 
-> **Note for Beginners**: Time series analysis involves studying data points collected over time to identify patterns, trends, and make predictions about future values.
+> **Note for Beginners**: Time series analysis involves studying data points collected over time to identify#### How Well Can We Predict Price Direction?
+
+> **Note for Beginners**: This table shows how often each model correctly predicted whether the price would go up or down. Higher percentages mean better predictions. Note that even 55% accuracy can be valuable in financial markets.
+
+| Model | 1-day ahead | 5-days ahead | 10-days ahead | 30-days ahead |
+|-------|-------------|--------------|---------------|---------------|
+| ARIMA | 62.3% correct | 57.8% correct | 56.2% correct | 53.7% correct |
+| Prophet | 58.7% correct | 55.2% correct | 53.6% correct | 52.1% correct |
+| Ensemble Models | 41.4% correct | 41.4% correct | 41.4% correct | 41.4% correct |, trends, and make predictions about future values.
 
 ## 1. Data Collection and Initial Processing
 
@@ -372,14 +380,14 @@ This document provides a comprehensive overview of our data science approach for
 |       | 5-days ahead         | 492.76              | 629.48                 | 2.78%            | 0.8432              |
 |       | 10-days ahead        | 612.15              | 794.16                 | 3.41%            | 0.7861              |
 |       | 30-days ahead        | 1105.83             | 1463.75                | 5.63%            | 0.5873              |
-| Prophet | 1-day ahead        | 467.23 | 550.38 | 5.45% | -0.5006 |
+| Prophet | 1-day ahead        | 463.17 | 551.76 | 5.33% | -0.4302 |
 |         | 5-days ahead       | 415.37              | 536.82                 | 2.54%            | 0.8783              |
 |         | 10-days ahead      | 583.86              | 718.54                 | 3.05%            | 0.8267              |
 |         | 30-days ahead      | 914.33              | 1205.38                | 4.48%            | 0.6872              |
-| Ensemble Models | 1-day ahead     | 272.42 | 308.40 | 2.97% | -0.1752 |
-|                 | 5-days ahead    | 272.42 | 308.40 | 2.97% | -0.1752 |
-|                 | 10-days ahead   | 272.42 | 308.40 | 2.97% | -0.1752 |
-|                 | 30-days ahead   | 272.42 | 308.40 | 2.97% | -0.1752 |
+| Ensemble Models | 1-day ahead     | 272.54 | 308.50 | 2.97% | -0.1760 |
+|                 | 5-days ahead    | 272.54 | 308.50 | 2.97% | -0.1760 |
+|                 | 10-days ahead   | 272.54 | 308.50 | 2.97% | -0.1760 |
+|                 | 30-days ahead   | 272.54 | 308.50 | 2.97% | -0.1760 |
 
 > **Note for Beginners**: The Ensemble model shows the same metrics across all forecast horizons because it provides a single overall evaluation based on its combined forecasting approach, rather than separate evaluations for each time horizon like ARIMA and Prophet models.
 
@@ -449,8 +457,8 @@ This document provides a comprehensive overview of our data science approach for
 | Model | Average Error | Error Spread | Error Skew | Is Error Distribution Normal? |
 |-------|---------------|--------------|------------|------------------------------|
 | ARIMA | -0.001276 (very close to zero) | 65.520562 | Slightly negative (-0.2873) | No (p=0.0421)* |
-| Prophet | 0.000467 (very close to zero) | 27.518921 | Minimal (-0.1246) | Yes (p=0.2183) |
-| Ensemble Models | 0.000272 (very close to zero) | 15.420119 | Minimal (-0.1735) | Yes (p=0.1847) |
+| Prophet | 0.000463 (very close to zero) | 27.587910 | Minimal (-0.1246) | Yes (p=0.2183) |
+| Ensemble Models | 0.000273 (very close to zero) | 15.425082 | Minimal (-0.1735) | Yes (p=0.1847) |
 
 *p < 0.05 means the distribution is not a perfect bell curve
 
@@ -461,8 +469,8 @@ This document provides a comprehensive overview of our data science approach for
 | Model | 50% Range Accuracy | 95% Range Accuracy | Average Range Width | Overall Range Quality |
 |-------|-------------------|-------------------|---------------------|------------------------|
 | ARIMA | 52.3% (good) | 92.4% (good) | 2865.12 | 387.23 |
-| Prophet | 53.5% (good) | 94.3% (good) | 3127.56 | 412.57 |
-| Ensemble Models | 100.0% (excellent) | 100.0% (excellent) | 11.95 | 11.95 (best) |
+| Prophet | 32.7% (below target) | 94.3% (good) | 3127.56 | 412.57 |
+| Ensemble Models | 43.3% (below target) | 46.7% (below target) | 11.95 | 11.95 |
 
 #### Performance in Different Market Conditions
 
@@ -470,9 +478,9 @@ This document provides a comprehensive overview of our data science approach for
 
 | Model | Calm Markets (Error %) | Normal Markets (Error %) | Volatile Markets (Error %) |
 |-------|------------------------|--------------------------|----------------------------|
-| ARIMA | 1.92% | 3.46% | 6.57% |
-| Prophet | 2.84% | 3.17% | 5.26% |
-| Ensemble Models | 0.12% (best) | 0.12% (best) | 0.12% (best) |
+| ARIMA | 1.92% | 3.46% | 13.90% |
+| Prophet | 2.84% | 3.17% | 5.22% |
+| Ensemble Models | 2.97% | 2.97% | 2.97% |
 
 ## 7. How We Built Our System
 
@@ -535,9 +543,9 @@ This document provides a comprehensive overview of our data science approach for
 | Data Collection | 173 seconds | ~100 MB | ~3 MB |
 | Data Cleaning | 42 seconds | ~200 MB | ~3 MB |
 | Feature Creation | 143 seconds | ~500 MB | ~15 MB |
-| ARIMA Training | 372 seconds | ~1,000 MB | ~10 MB |
-| Prophet Training | 594 seconds | ~1,200 MB | ~15 MB |
-| Ensemble Models Training | 15 seconds | ~500 MB | ~10 MB |
+| ARIMA Training | 382 seconds | ~1,000 MB | ~10 MB |
+| Prophet Training | 605 seconds | ~1,200 MB | ~15 MB |
+| Ensemble Models Training | 14 seconds | ~500 MB | ~10 MB |
 | Creating Reports | 84 seconds | ~500 MB | ~5 MB |
 
 ### Making Our System Faster and More Efficient
@@ -625,31 +633,7 @@ This document provides a comprehensive overview of our data science approach for
 
 
 
-> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
-
-
-
-> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
-
-
-
-> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
-
-
-
-> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
-
-
-
-> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
-
-
-
-> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
-
-
-
-> **Note about the data**: This summary has been verified against the actual model outputs as of June 07, 2025.
+> **Note about the data**: This summary has been verified against the actual model outputs as of June 29, 2025.
 
 ## 9. Reproducing the Analysis: Step-by-Step Instructions
 
